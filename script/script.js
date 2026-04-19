@@ -87,6 +87,15 @@ const displayVideos = (videos) => {
 
     videoContainer.innerHTML = ""; // Clear previous videos
 
+    if(videos.length === 0){
+        videoContainer.innerHTML =`
+        <div class="col-span-full flex flex-col text-center justify-center items-center py-20 gap-5">
+                <img class="w-[150px]" src="./assets/Icon.png" alt="">
+                <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
+            </div>
+        `;
+        return;
+    }
     videos.forEach((video) => {
         // console.log(video)
 
