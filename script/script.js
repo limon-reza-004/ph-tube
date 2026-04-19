@@ -14,7 +14,8 @@ function displayCategories(categories) {
     for (let category of categories) {
         const categoryDiv = document.createElement('div');
         categoryDiv.innerHTML = `
-        <button class="btn btn-sm bg-[#25252515] hover:bg-[#FF1F3D] hover:text-white text-[#25252590]">${category.category}</button>
+        <button class="btn btn-sm bg-[#25252515] hover:bg-[#FF1F3D] hover:text-white text-[#25252590]">
+        ${category.category}</button>
         `;
         categoryContainer.appendChild(categoryDiv);
     }
@@ -24,29 +25,35 @@ function displayCategories(categories) {
 
 
 
-
-
 // {
-//     "category_id": "1003",
-//     "video_id": "aaai",
-//     "thumbnail": "https://i.ibb.co/kc8CCFs/30-rock.png",
-//     "title": "30 Rock",
+//     "category_id": "1001",
+//     "video_id": "aaaa",
+//     "thumbnail": "https://i.ibb.co/L1b6xSq/shape.jpg",
+//     "title": "Shape of You",
 //     "authors": [
 //         {
-//             "profile_picture": "https://i.ibb.co/YZN9rQZ/tina.jpg",
-//             "profile_name": "Tina Fey",
-//             "verified": false
+//             "profile_picture": "https://i.ibb.co/D9wWRM6/olivia.jpg",
+//             "profile_name": "Olivia Mitchell",
+//             "verified": ""
 //         }
 //     ],
 //     "others": {
-//         "views": "4.5K",
-//         "posted_date": "14800"
+//         "views": "100K",
+//         "posted_date": "16278"
 //     },
-//     "description": "'30 Rock,' led by Tina Fey, is a comedy series that has garnered 4.5K views. The show is a witty and humorous take on the behind-the-scenes antics of a fictional live comedy show. With its sharp writing and unforgettable characters, '30 Rock' is perfect for fans of smart, satirical humor and engaging storylines."
+//     "description": "Dive into the rhythm of 'Shape of You,' a captivating track that blends pop sensibilities with vibrant beats. Created by Olivia Mitchell, this song has already gained 100K views since its release. With its infectious melody and heartfelt lyrics, 'Shape of You' is perfect for fans looking for an uplifting musical experience. Let the music take over as Olivia's vocal prowess and unique style create a memorable listening journey."
 // }
 
 
 
+// // second converded to json
+// function getHoursAgo(timestamp) {
+//     const now = Date.now() / 1000; // current time (seconds)
+//     const diff = now - timestamp;
+
+//     const hours = Math.floor(diff / 3600);
+//     return `${hours} hours ago`;
+// }
 
 
 // load videos
@@ -56,26 +63,46 @@ function loadVideos() {
         .then(data => displayVideos(data.videos))
 }
 
+
 const displayVideos = (videos) => {
     const videoContainer = document.getElementById("video-container");
 
     videos.forEach((video) => {
-        // console.log(video)
+        console.log(video)
 
         const videoCard = document.createElement("div");
 
         videoCard.innerHTML = `
-        <div class="card bg-base-100 shadow-sm">
-  <figure>
-    <img
-      src="${video.thumbnail}"
-      alt="Shoes" />
-  </figure>
-  <div class="card-body">
-    <h2 class="card-title">${video.title}</h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-  </div>
-    </div>
+        <div class="card bg-base-100">
+                <figure>
+                    <img class="w-full h-[180px] object-cover " src="${video.thumbnail}" alt="photo" />
+                    <!-- <span class="absolute bottom-2 right-2 text-white text-sm bg-black px-2 rounded-sm">3hrs 56 min
+                        ago</span> -->
+                </figure>
+                <div class="flex gap-3 px-0 py-5">
+
+                    <div class="flex items-center gap-3">
+                        <div class="profile">
+                            <div class="avatar gap-3">
+                                <div class="ring-primary ring-offset-base-100 w-6 rounded-full ring-2 ring-offset-2">
+                                    <img src="${video.authors[0].profile_picture}" />
+
+                                </div>
+                                <h2 class="text-sm font-semibold truncate">Midnight Serenade</h2>
+                            </div>
+
+                            <div class="flex gap-2 pl-9 min-w-0 overflow-hidden">
+                                <p class="text-sm text-gray-600 truncate">${video.authors[0].profile_name} •</p>
+                                <p class="text-sm text-gray-600 whitespace-nowrap">${video.others.views} views</p>
+                                <p class="text-sm text-gray-600 whitespace-nowrap">${video.others.posted_date} hours ago</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
 
         `;
 
@@ -84,5 +111,6 @@ const displayVideos = (videos) => {
     });
 }
 
+// getHoursAgo();
 loadCategories();
 loadVideos();
