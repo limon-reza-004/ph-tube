@@ -10,7 +10,11 @@ function loadCategories() {
 function loadVideos() {
     fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
         .then(response => response.json())
-        .then(data => displayVideos(data.videos))
+        .then(data => {
+            removeActiveClass();
+            document.getElementById('btnAll').classList.add('active');
+            displayVideos(data.videos);
+        })
 }
 
 
@@ -22,8 +26,8 @@ const loadCategoryVideos = (id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => {
+            removeActiveClass();
             const clickedBtn = document.getElementById(`btn-${id}`);
-            // console.log(clickedBtn);
             clickedBtn.classList.add('active');
             displayVideos(data.category);
         })
@@ -146,8 +150,12 @@ const displayVideos = (videos) => {
 }
 
 
-
-
+function removeActiveClass(){
+    const activeBtns = document.getElementsByClassName('active');
+    for(let btn of activeBtns){
+        btn.classList.remove('active');
+    }
+}
 
 
 // getHoursAgo();
